@@ -1,40 +1,28 @@
 //------------------------------------------------------
-// player.js - Player State + Movement
+// player.js - Player state + movement
 //------------------------------------------------------
 
 console.log("player.js loaded");
 
-//------------------------------------------------------
-// PLAYER STATE
-//------------------------------------------------------
-
-// 初始位置（後面 game.js 會負責重設）
+// 玩家初始座標（會被 game.js START 覆蓋）
 let px = 2;
 let py = 2;
 
-// 移動速度（以格為單位）
-let moveSpeed = 1;
-
-
-//------------------------------------------------------
-// MOVE PLAYER
-//------------------------------------------------------
+// 一格 tile 對應 TILE 大小
 function movePlayer(dx, dy) {
-
     let nx = px + dx;
     let ny = py + dy;
 
-    // 檢查是否能走
-    if (canWalk(nx, ny)) {
-        px = nx;
-        py = ny;
-    }
+    // 邊界 & 碰牆檢查
+    if (nx < 0 || ny < 0 || nx >= MAP_W || ny >= MAP_H) return;
+    if (map[ny][nx] === 1) return;
+
+    px = nx;
+    py = ny;
 }
 
-
-//------------------------------------------------------
-// DEBUG：輸出玩家位置
-//------------------------------------------------------
-function getPlayerPos() {
-    return { x: px, y: py };
+// 用於 renderer.js 繪製玩家
+function drawPlayer() {
+    ctx.fillStyle = "#fff"; // 白色方塊
+    ctx.fillRect(px * TILE, py * TILE, TILE, TILE);
 }

@@ -4,6 +4,8 @@
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
+window.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
 
 let volumeMaster = 0.25;
 let sfxEnabled = true;

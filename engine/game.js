@@ -5,16 +5,17 @@
 let gameStarted = false;
 let audioUnlocked = false;
 
-// Canvas (Safe init)
 let canvas = null;
 let ctx = null;
 
 window.addEventListener("DOMContentLoaded", () => {
     canvas = document.getElementById("game");
+
     if (!canvas) {
         console.error("❌ Canvas #game not found!");
         return;
     }
+
     ctx = canvas.getContext("2d");
     console.log("✔ Canvas ready");
 });

@@ -1,70 +1,35 @@
 //------------------------------------------------------
-// Mini Micro Montagem 2025 - MAIN LOOP
+// loop.js - Main Game Loop
 //------------------------------------------------------
 
-let lastTime = 0;
+console.log("loop.js loaded");
+
+let gameRunning = false;
 
 
-//======================================================
-// UPDATE GAME STATE
-//======================================================
-function update(dt) {
-    updatePlayer();
-    updateEnemies();
-    updateBullets();
-    updateAnimations();
-}
-
-
-//======================================================
-// RENDER GAME STATE
-//======================================================
-function render() {
-    clearScreen();
-    drawMap();
-    drawCollects();
-    drawEnemies();
-    drawBullets();
-    drawPlayer();
-    drawUI();
-}
-
-
-//======================================================
-// MAIN LOOP (requestAnimationFrame)
-//======================================================
-window.Game = {
-    loop: {
-        start() {
-            console.log("Game loop ready");
-        }
+//------------------------------------------------------
+// START LOOP
+//------------------------------------------------------
+function startLoop() {
+    if (!gameRunning) {
+        gameRunning = true;
+        requestAnimationFrame(gameLoop);
     }
-};
-
-function gameLoop(timestamp) {
-    let dt = timestamp - lastTime;
-    lastTime = timestamp;
-
-    update(dt);
-    render();
-
-    requestAnimationFrame(gameLoop);
 }
 
 
-//======================================================
-// START GAME
-//======================================================
-function startGame() {
-    initInput();
-    resetAttributes();
-    parseEnemiesFromMap();
+//------------------------------------------------------
+// MAIN LOOP
+//------------------------------------------------------
+function gameLoop() {
 
-    if (!loadGame()) {
-        px = 2;
-        py = 2;
-        score = 0;
-    }
+    if (!gameRunning) return;
+
+    // 更新玩家輸入
+    updateInput();
+
+    // 繪製畫面
+    renderFrame();
 
     requestAnimationFrame(gameLoop);
 }

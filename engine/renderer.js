@@ -4,15 +4,19 @@
 
 console.log("renderer.js loaded");
 
-//------------------------------------------------------
-// BASIC CANVAS ACCESS
-//------------------------------------------------------
+// renderer 只負責繪圖，不負責初始化 canvas
+// canvas & ctx 由 game.js 提供
+function renderFrame() {
+    if (!ctx) return; // 防呆
 
-let canvas = document.getElementById("gameCanvas");
-let ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// 每格 tile 尺寸（10px → 320x240 剛好畫 32x24）
-const TILE = 10;
+    drawMap();
+    drawPlayer();
+    drawEnemies();
+    drawBullets();
+}
+
 
 
 //------------------------------------------------------

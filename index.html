@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>KC Retro Montage 2025</title>
-  <style>
-    body {
-      margin: 0;
-      background: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    canvas {
-      image-rendering: pixelated;
-      border: 1px solid #333;
-    }
-  </style>
-</head>
-<body>
+<meta charset="UTF-8">
+<title>Mini Micro Montagem 2025</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
 
+<!-- ZX Spectrum Font -->
+<style>
+@font-face {
+  font-family: "ZX";
+  src: url("assets/zx-font.ttf");
+}
+</style>
+
+</head>
+  
+<body>
+<div id="titleMenu">
+  <div style="font-size:40px; color:#FFF">MINI MICRO MONTAGEM 2025</div>
+  <div class="menuItem" onclick="startGame()">▶ START</div>
+  <div class="menuItem" onclick="continueGame()">▶ CONTINUE</div>
+  <div class="menuItem" onclick="showAbout()">▶ ABOUT</div>
+</div>
 <canvas id="game" width="320" height="240"></canvas>
 <script src="engine/game.js"></script>
 <script src="engine/renderer.js"></script>

@@ -4,15 +4,35 @@
 
 console.log("game.js loaded");
 
+let canvas = null;
+let ctx = null;
+
+//------------------------------------------------------
+// DOM READY → 初始化 canvas + ctx
+//------------------------------------------------------
+window.addEventListener("DOMContentLoaded", () => {
+
+    canvas = document.getElementById("game");
+    if (!canvas) {
+        console.error("❌ ERROR: <canvas id='game'> not found");
+        return;
+    }
+
+    ctx = canvas.getContext("2d");
+    console.log("✔ Canvas & Context initialized");
+
+    initGame();
+});
+
+
 //------------------------------------------------------
 // TITLE MENU CONTROL
 //------------------------------------------------------
-
 function startGame() {
 
     // 隱藏主選單
     const menu = document.getElementById("titleMenu");
-    menu.style.display = "none";
+    if (menu) menu.style.display = "none";
 
     // 初始化玩家位置
     px = 2;
@@ -38,11 +58,14 @@ Created by KC`
 
 
 //------------------------------------------------------
-// INITIALIZE (optional future expansion)
+// INITIALIZE
 //------------------------------------------------------
 function initGame() {
-    // 若需要預載資料，可以放這裡
+    console.log("Game initialized");
 }
 
+
+//------------------------------------------------------
 // Boot message
+//------------------------------------------------------
 console.log("Mini Micro Montagem 2025 (Minimal Mode) Ready.");

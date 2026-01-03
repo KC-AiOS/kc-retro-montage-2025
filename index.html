@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Mini Micro Montage 2025</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<head>
+  <meta charset="UTF-8" />
+  <title>KC Retro Montage 2025</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      image-rendering: pixelated;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
 <body>
-<canvas id="screen" width="512" height="384"></canvas>
+
+<canvas id="game" width="320" height="240"></canvas>
+
 <script src="engine/renderer.js"></script>
-<script src="engine/ai.js"></script>
 <script src="engine/input.js"></script>
-<script src="engine/save.js"></script>
+<script src="engine/ai.js"></script>
 <script src="engine/floors.js"></script>
 <script src="engine/bullets.js"></script>
 <script src="engine/animations.js"></script>
+<script src="engine/save.js"></script>
 <script src="engine/loop.js"></script>
-<script src="audio/sfx.js"></script>
-</body></html>
+
+<script>
+  // 🔑 關鍵：明確啟動
+  if (typeof startGame === "function") {
+    startGame();
+  } else if (typeof gameLoop === "function") {
+    gameLoop();
+  } else {
+    console.error("Game loop not found");
+  }
+</script>
+
+</body>
+</html>

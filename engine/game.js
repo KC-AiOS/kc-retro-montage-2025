@@ -1,132 +1,48 @@
 //------------------------------------------------------
-// Mini Micro Montagem 2025 - GAME FLOW CONTROLLER
+// game.js - Clean Boot Version (Minimal Playable Build)
 //------------------------------------------------------
 
-let gameStarted = false;
-let audioUnlocked = false;
+console.log("game.js loaded");
 
-let canvas = null;
-let ctx = null;
-
-window.addEventListener("DOMContentLoaded", () => {
-    canvas = document.getElementById("game");
-
-    if (!canvas) {
-        console.error("❌ Canvas #game not found!");
-        return;
-    }
-
-    ctx = canvas.getContext("2d");
-    console.log("✔ Canvas ready");
-});
-
-
-//======================================================
+//------------------------------------------------------
 // TITLE MENU CONTROL
-//======================================================
+//------------------------------------------------------
+
 function startGame() {
-    hideTitleMenu();
-    newGame();
+
+    // 隱藏主選單
+    const menu = document.getElementById("titleMenu");
+    menu.style.display = "none";
+
+    // 初始化玩家位置
+    px = 2;
+    py = 2;
+
+    // 啟動主迴圈
+    startLoop();
 }
 
 function continueGame() {
-    hideTitleMenu();
-
-    if (!loadGame()) {
-        newGame();
-    }
+    alert("Continue not implemented yet.");
 }
 
 function showAbout() {
     alert(
 `MINI MICRO MONTAGEM 2025
 Retro 8-bit Action Adventure
-ZX Spectrum Inspired Edition
+HTML5 ZX Engine (Minimal Build)
 
-Created by KC
-Engine: KC ZX-HTML5 Engine v1.0
-2025`
+Created by KC`
     );
 }
 
 
-//======================================================
-// NEW GAME
-//======================================================
-function newGame() {
-    currentFloor = 0;
-    score = 0;
-
-    parseEnemiesFromMap();
-    resetAttributes();
-
-    px = 2;
-    py = 2;
-
-    initInput();
-    gameStarted = true;
-
-    requestAnimationFrame(gameLoop);
-}
-
-
-//======================================================
-// AUDIO UNLOCK (Chrome/iOS requirement)
-//======================================================
-window.addEventListener("click", function unlock() {
-    if (!audioUnlocked) {
-        let o = audioCtx.createOscillator();
-        let g = audioCtx.createGain();
-
-        o.connect(g).connect(audioCtx.destination);
-        o.start();
-        o.stop(audioCtx.currentTime + 0.01);
-
-        audioUnlocked = true;
-        console.log("Audio unlocked.");
-    }
-    window.removeEventListener("click", unlock);
-});
-
-
-//======================================================
-// HIDE TITLE MENU
-//======================================================
-function hideTitleMenu() {
-    let menu = document.getElementById("titleMenu");
-    menu.style.display = "none";
-}
-
-
-//======================================================
-// INIT (Optional)
-//======================================================
+//------------------------------------------------------
+// INITIALIZE (optional future expansion)
+//------------------------------------------------------
 function initGame() {
-    resetAttributes();
-    parseEnemiesFromMap();
-    initInput();
+    // 若需要預載資料，可以放這裡
 }
 
-
-//======================================================
-// MAIN LOOP HANDOFF
-//======================================================
-function gameLoop() {
-    if (!gameStarted) return;
-
-    updatePlayer();
-    updateEnemies();
-    updateBullets();
-    updatePlayerAnimation();
-    updateEnemyAnimation();
-    updateCollectibles();
-    updateGate();
-
-    renderFrame();
-    drawMiniMap();
-    applyBleed();
-
-    requestAnimationFrame(gameLoop);
-}
-
-console.log("Mini Micro Montagem 2025 Loaded.");
+// Boot message
+console.log("Mini Micro Montagem 2025 (Minimal Mode) Ready.");

@@ -5,51 +5,26 @@
 <title>Mini Micro Montagem 2025</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/style.css">
-
-<!-- ZX Spectrum Font -->
-<style>
-@font-face {
-  font-family: "ZX";
-  src: url("assets/zx-spectrum.ttf") format("truetype");
-}
-body {
-  font-family: "ZX", monospace;
-}
-</style>
-
-
 </head>
-  
-<body {
-  font-family: "ZX", Consolas, monospace;
-}>
+
+<body>
+
 <div id="titleMenu">
-  <div style="font-size:40px; color:#FFF">MINI MICRO MONTAGEM 2025</div>
-  <div class="menuItem" onclick="startGame()">▶ START</div>
-  <div class="menuItem" onclick="continueGame()">▶ CONTINUE</div>
-  <div class="menuItem" onclick="showAbout()">▶ ABOUT</div>
+  <h1>MINI MICRO MONTAGEM 2025</h1>
+  <button onclick="startGame()">▶ START</button>
+  <button onclick="continueGame()">▶ CONTINUE</button>
+  <button onclick="showAbout()">▶ ABOUT</button>
 </div>
+
 <canvas id="game" width="320" height="240"></canvas>
-<script src="engine/game.js"></script>
-<script src="engine/renderer.js"></script>
+
+<!-- Load engine in order -->
+<script src="engine/map.js"></script>
+<script src="engine/player.js"></script>
 <script src="engine/input.js"></script>
-<script src="engine/ai.js"></script>
-<script src="engine/floors.js"></script>
-<script src="engine/bullets.js"></script>
-<script src="engine/animations.js"></script>
-<script src="engine/save.js"></script>
+<script src="engine/renderer.js"></script>
+<script src="engine/game.js"></script>
 <script src="engine/loop.js"></script>
-
-<script>
-  window.addEventListener("load", () => {
-    if (window.Game && Game.loop) {
-      Game.loop.start();
-    } else {
-      console.error("Game loop not found");
-    }
-  });
-</script>
-
 
 </body>
 </html>

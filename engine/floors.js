@@ -14,6 +14,12 @@
  C = Collectible
 */
 
+function resetAttributes() {
+    score = 0;
+    hp = 3;
+}
+
+
 const FLOORS = [
 
 ////////////////////////////////////////////////////////

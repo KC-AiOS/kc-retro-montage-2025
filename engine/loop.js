@@ -33,6 +33,14 @@ function render() {
 //======================================================
 // MAIN LOOP (requestAnimationFrame)
 //======================================================
+window.Game = {
+    loop: {
+        start() {
+            console.log("Game loop ready");
+        }
+    }
+};
+
 function gameLoop(timestamp) {
     let dt = timestamp - lastTime;
     lastTime = timestamp;

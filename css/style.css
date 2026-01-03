@@ -1,0 +1,55 @@
+/* ----------------------------------------------------
+   Mini Micro Montagem 2025 - Style Sheet
+   ---------------------------------------------------- */
+
+@font-face {
+    font-family: "ZX";
+    src: url("../assets/zx-font.ttf");
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    overflow: hidden;
+    color: #fff;
+    font-family: "ZX", monospace;
+}
+
+/* Center Canvas */
+#gameCanvas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    image-rendering: pixelated;
+    border: 4px solid #555;
+}
+
+/* TITLE MENU */
+#titleMenu {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 25%;
+    color: #0f0;
+}
+
+.menuItem {
+    margin: 16px 0;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.menuItem:hover {
+    color: #FFD700;
+}
+
+/* ABOUT Fallback */
+#aboutBox {
+    padding: 20px;
+    background: #111;
+    border: 2px solid #444;
+    width: 360px;
+    color: #0f0;
+}

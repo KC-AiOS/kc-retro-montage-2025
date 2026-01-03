@@ -1,58 +1,45 @@
 //------------------------------------------------------
-// RENDERER — Mini Micro Montagem 2025
+// renderer.js - Draw Map + Player
 //------------------------------------------------------
 
 console.log("renderer.js loaded");
 
-//------------------------------------------------------
-// Unified renderFrame() — SAFE
-//------------------------------------------------------
+// renderer 只負責繪圖，不負責初始化 canvas
+// canvas & ctx 由 game.js 提供
 function renderFrame() {
-
-    // 如果 canvas 或 ctx 尚未初始化 → 不畫、也不報錯
-    if (typeof canvas === "undefined" || !canvas) return;
-    if (typeof ctx === "undefined" || !ctx) return;
+    if (!ctx) return; // 防呆：ctx 尚未初始化時不畫
 
     // 清畫面
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw Map
     drawMap();
-
-    // Draw Player
     drawPlayer();
-
-    // （之後可加入敵人、子彈）
-    // drawEnemies();
-    // drawBullets();
 }
-
-
+ 
 //------------------------------------------------------
 // MAP DRAW
 //------------------------------------------------------
 function drawMap() {
 
-    if (!map) return;
-
     for (let y = 0; y < MAP_H; y++) {
         for (let x = 0; x < MAP_W; x++) {
 
-            ctx.fillStyle = (map[y][x] === 1) ? "#444" : "#111";
+            if (map[y][x] === 1) {
+                ctx.fillStyle = "#444";   // 牆
+            } else {
+                ctx.fillStyle = "#111";   // 地板
+            }
+
             ctx.fillRect(x * TILE, y * TILE, TILE, TILE);
         }
     }
 }
 
-
 //------------------------------------------------------
 // DRAW PLAYER
 //------------------------------------------------------
 function drawPlayer() {
-
-    if (typeof px === "undefined" || typeof py === "undefined") return;
-
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#fff"; // 白色小方塊
     ctx.fillRect(px * TILE, py * TILE, TILE, TILE);
 }

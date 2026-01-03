@@ -22,14 +22,7 @@ function startLoop() {
 // MAIN LOOP
 //------------------------------------------------------
 function gameLoop() {
-
-    if (!gameRunning) return;
-
-    // 更新玩家輸入
-    updateInput();
-
-    // 繪製畫面
-    renderFrame();
-
+    updatePlayer();   // 可留空
+    renderFrame();    // ⭐ 要畫畫面
     requestAnimationFrame(gameLoop);
 }

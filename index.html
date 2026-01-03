@@ -32,15 +32,15 @@
 <script src="engine/loop.js"></script>
 
 <script>
-  // 🔑 關鍵：明確啟動
-  if (typeof startGame === "function") {
-    startGame();
-  } else if (typeof gameLoop === "function") {
-    gameLoop();
-  } else {
-    console.error("Game loop not found");
-  }
+  window.addEventListener("load", () => {
+    if (window.Game && Game.loop) {
+      Game.loop.start();
+    } else {
+      console.error("Game loop not found");
+    }
+  });
 </script>
+
 
 </body>
 </html>

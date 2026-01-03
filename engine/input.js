@@ -1,151 +1,46 @@
 //------------------------------------------------------
-// Mini Micro Montagem 2025 - INPUT & PLAYER CONTROL
+// input.js - Keyboard Input Controller
 //------------------------------------------------------
 
-let keys = {};
+console.log("input.js loaded");
 
-let px = 2;   // player position
-let py = 2;
+//------------------------------------------------------
+// KEY STATE TABLE
+//------------------------------------------------------
 
-let playerHP = 3;
-let playerDead = false;
-
-document.addEventListener("keydown", e => keys[e.key] = true);
-document.addEventListener("keyup",   e => keys[e.key] = false);
-
-
-//======================================================
-// INIT INPUT
-//======================================================
-function initInput() {
-    keys = {};
-    playerDead = false;
-    playerHP = 3;
-}
+let keyDown = {
+    ArrowUp: false,
+    ArrowDown: false,
+    ArrowLeft: false,
+    ArrowRight: false
+};
 
 
-//======================================================
-// PLAYER MOVE (collision-aware)
-//======================================================
-function movePlayer(dx, dy) {
-    let nx = px + dx;
-    let ny = py + dy;
+//------------------------------------------------------
+// EVENT HANDLERS
+//------------------------------------------------------
 
-    if (!isWalkable(nx, ny)) return;
-
-    px = nx;
-    py = ny;
-
-    sfxPickup();   // movement sound (retro)
-}
-
-
-//======================================================
-// PLAYER SHOOT
-//======================================================
-function playerShoot() {
-    bullets.push({
-        x: px,
-        y: py,
-        dx: 1,           // forward shot
-        dy: 0,
-        speed: 0.18,
-        owner: "player"
-    });
-
-    sfxShoot();
-}
-
-
-//======================================================
-// PLAYER UPDATE (called every frame)
-//======================================================
-function updatePlayer() {
-    if (playerDead) return;
-
-    // movement
-    if (keys["ArrowUp"])    movePlayer(0, -1);
-    if (keys["ArrowDown"])  movePlayer(0, 1);
-    if (keys["ArrowLeft"])  movePlayer(-1, 0);
-    if (keys["ArrowRight"]) movePlayer(1, 0);
-
-    // shooting
-    if (keys[" "]) {
-        playerShoot();
-        keys[" "] = false;
+window.addEventListener("keydown", (e) => {
+    if (keyDown[e.key] !== undefined) {
+        keyDown[e.key] = true;
     }
+});
 
-    playerCollectCheck();
-    playerEnemyCheck();
-    playerDoorCheck();
-}
-
-
-//======================================================
-// PICKUP COLLECTIBLES
-//======================================================
-function playerCollectCheck() {
-    for (let c of collects) {
-        if (!c.active) continue;
-
-        if (px === c.x && py === c.y) {
-            c.active = false;
-            score += 10;
-            sfxPickup();
-            saveGame();
-        }
+window.addEventListener("keyup", (e) => {
+    if (keyDown[e.key] !== undefined) {
+        keyDown[e.key] = false;
     }
-}
+});
 
 
-//======================================================
-// COLLISION WITH ENEMY (touch damage)
-//======================================================
-function playerEnemyCheck() {
-    for (let e of enemies) {
-        if (!e.active) continue;
+//------------------------------------------------------
+// INPUT UPDATE → PLAYER MOVEMENT
+//------------------------------------------------------
 
-        if (px === e.x && py === e.y) {
-            takeDamage();
-        }
-    }
-}
+function updateInput() {
 
-
-//======================================================
-// PLAYER TAKES DAMAGE
-//======================================================
-function takeDamage() {
-    playerHP--;
-
-    sfxHit();
-
-    if (playerHP <= 0) {
-        playerDead = true;
-        console.warn("Player Dead");
-    }
-}
-
-
-//======================================================
-// ENTER DOOR (D) → NEXT FLOOR
-//======================================================
-function playerDoorCheck() {
-    let t = FLOORS[currentFloor][py][px];
-
-    if (t === "D") {
-        currentFloor++;
-
-        if (currentFloor >= FLOORS.length)
-            currentFloor = 0;  // wrap-around
-
-        sfxFloorChange();
-        saveGame();
-
-        resetAttributes();
-        parseEnemiesFromMap();
-
-        px = 2;
-        py = 2;
-    }
+    if (keyDown.ArrowUp)    movePlayer(0, -1);
+    if (keyDown.ArrowDown)  movePlayer(0,  1);
+    if (keyDown.ArrowLeft)  movePlayer(-1, 0);
+    if (keyDown.ArrowRight) movePlayer( 1, 0);
 }
